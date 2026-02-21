@@ -27,6 +27,7 @@ validate:
 	@echo "Validações recomendadas para este repositório:"
 	@echo "- checagem de dependências duplicadas"
 	@echo "- checagem de tabs/trailing spaces em YAML/Markdown"
+	@echo "- checagem de paridade bilíngue EN/PT-BR"
 	@echo "Use: make check"
 
 docs:
@@ -42,3 +43,4 @@ check:
 	@echo "Executando scripts leves de verificação..."
 	@node scripts/check-deps-duplicates.mjs
 	@bash scripts/check-yaml.sh
+	@bash scripts/check-i18n-parity.sh

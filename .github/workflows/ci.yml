@@ -54,6 +54,7 @@ jobs:
         run: |
           node scripts/check-deps-duplicates.mjs
           bash scripts/check-yaml.sh
+          bash scripts/check-i18n-parity.sh
 
       - name: Install dependencies (full CI enabled)
         if: ${{ steps.mode.outputs.full_ci == 'true' }}
