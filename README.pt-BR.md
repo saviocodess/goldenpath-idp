@@ -14,6 +14,37 @@ Este repositório entrega uma base prática de engenharia de plataforma:
 - Padrões prescritivos de observabilidade, segurança, CI/CD e ownership
 - Runbooks operacionais e decisões arquiteturais para cenários reais
 
+## Perfil Profissional
+
+- Nome: `NAME_PLACEHOLDER`
+- Cargo: `TITLE_PLACEHOLDER`
+- Localização/Fuso: `LOCATION_TIMEZONE_PLACEHOLDER`
+- LinkedIn: `LINKEDIN_PLACEHOLDER`
+- Email: `EMAIL_PLACEHOLDER`
+
+## Por que este repositório prova senioridade
+
+- Decisões de arquitetura com trade-offs explícitos:
+  - `docs/pt-br/adr/0001-idp-scope-and-non-goals.md`
+  - `docs/pt-br/adr/0003-gitops-argocd-app-of-apps.md`
+- Prontidão operacional com runbooks de padrão produção:
+  - `docs/pt-br/runbooks/deploy-failure.md`
+  - `docs/pt-br/runbooks/rollback.md`
+- Segurança e ownership de risco:
+  - `docs/pt-br/threat-model.md`
+  - `.github/workflows/security.yml`
+- Governança de plataforma e gates de qualidade:
+  - `docs/pt-br/standards/ci-cd.md`
+  - `docs/pt-br/standards/security-baseline.md`
+  - `.github/workflows/ci.yml`
+
+## Metas de Impacto da Plataforma
+
+- Redução de lead time de novos serviços: de dias para horas
+- Conformidade de Golden Path em novos serviços: >90%
+- Melhoria de MTTR via runbooks e telemetria padronizados
+- Governança de deploy por PR + GitOps + checks obrigatórios
+
 ## Escopo do Repositório
 
 - `templates/microservice-http`: blueprint Node.js/TypeScript para serviço HTTP

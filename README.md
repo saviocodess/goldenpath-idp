@@ -14,6 +14,37 @@ This repository provides a practical platform engineering baseline:
 - Prescriptive standards for observability, security, CI/CD, and ownership
 - Operational runbooks and architecture decisions for real-world incidents
 
+## Professional Profile
+
+- Name: `NAME_PLACEHOLDER`
+- Role: `TITLE_PLACEHOLDER`
+- Location/Timezone: `LOCATION_TIMEZONE_PLACEHOLDER`
+- LinkedIn: `LINKEDIN_PLACEHOLDER`
+- Email: `EMAIL_PLACEHOLDER`
+
+## Why this repository proves seniority
+
+- Architecture decisions with explicit trade-offs:
+  - `docs/en/adr/0001-idp-scope-and-non-goals.md`
+  - `docs/en/adr/0003-gitops-argocd-app-of-apps.md`
+- Operational readiness with production-style runbooks:
+  - `docs/en/runbooks/deploy-failure.md`
+  - `docs/en/runbooks/rollback.md`
+- Security and risk ownership:
+  - `docs/en/threat-model.md`
+  - `.github/workflows/security.yml`
+- Platform governance and quality gates:
+  - `docs/en/standards/ci-cd.md`
+  - `docs/en/standards/security-baseline.md`
+  - `.github/workflows/ci.yml`
+
+## Platform Impact Targets
+
+- Lead time reduction for new services: from days to hours
+- Golden Path compliance for new services: >90%
+- MTTR improvement through standardized runbooks and telemetry
+- Deployment governance by PR + GitOps + mandatory checks
+
 ## Repository Scope
 
 - `templates/microservice-http`: Node.js/TypeScript HTTP service blueprint
