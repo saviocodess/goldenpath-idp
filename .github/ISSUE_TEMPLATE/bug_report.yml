@@ -1,0 +1,25 @@
+name: Bug report
+description: Reporte um problema funcional no IDP
+title: "[bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema
+      description: Descreva comportamento observado e esperado.
+    validations:
+      required: true
+  - type: textarea
+    id: impacto
+    attributes:
+      label: Impacto
+      description: Qual impacto no fluxo de plataforma/produto?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduzir
+    attributes:
+      label: Passos para reproduzir
+      description: Inclua comandos, paths e evidências.

@@ -1,0 +1,25 @@
+name: Feature request
+description: Proposta de melhoria para o IDP
+title: "[feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Qual resultado de negócio/engenharia será habilitado?
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Proposta
+      description: Descreva escopo, trade-offs e impacto operacional.
+    validations:
+      required: true
+  - type: textarea
+    id: risco
+    attributes:
+      label: Riscos e mitigação
+      description: Liste riscos técnicos e plano de rollback.
