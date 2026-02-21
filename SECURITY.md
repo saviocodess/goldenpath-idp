@@ -1,24 +1,31 @@
-# Política de Segurança
+[Português (Brasil)](SECURITY.pt-BR.md) | **English**
 
-## Reportar vulnerabilidade
+# Security Policy
 
-Envie relato privado para os maintainers via Security Advisory do GitHub.
-Inclua:
+## Reporting a Vulnerability
 
-- Vetor de ataque
-- Impacto esperado
-- Repositórios/paths afetados
-- Evidências mínimas para reprodução
+Please report vulnerabilities privately through GitHub Security Advisory.
 
-## SLA de resposta
+Include:
 
-- Triagem inicial: até 2 dias úteis
-- Plano de mitigação: até 5 dias úteis
-- Correção e divulgação coordenada: conforme severidade
+- attack vector
+- expected impact
+- affected repositories/paths
+- minimum reproducible evidence
 
-## Diretrizes
+## Response SLA
 
-- Nunca publique exploit funcional em issue pública.
-- Não exponha credenciais, tokens ou dados sensíveis em logs/PR.
-- Aplique o baseline de `docs/standards/security-baseline.md`.
-- Consulte modelagem de ameaças em `docs/threat-model.md` para riscos e controles.
+- Initial triage: up to 2 business days
+- Mitigation plan: up to 5 business days
+- Coordinated fix/disclosure: based on severity
+
+## Security Baseline
+
+- Never publish functional exploit details in public issues.
+- Never expose credentials, tokens, or sensitive data in logs/PRs.
+- Follow `docs/en/standards/security-baseline.md`.
+- Use `docs/en/threat-model.md` for threat and control references.
+
+## Supported Versions
+
+This repository currently supports the latest `main` branch for security updates.

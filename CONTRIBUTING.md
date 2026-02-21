@@ -1,22 +1,43 @@
-# Contribuindo
+[Português (Brasil)](CONTRIBUTING.pt-BR.md) | **English**
 
-## Fluxo recomendado
+# Contributing
 
-1. Abra uma Issue descrevendo problema, impacto e proposta.
-2. Crie branch seguindo `tipo/escopo-descricao` (ex.: `feat/templates-worker-dlq`).
-3. Faça commits pequenos no padrão Conventional Commits.
-4. Atualize documentação afetada (`docs/`, runbooks, padrões, ADRs).
-5. Abra PR usando o template e evidencie riscos, rollback e plano de validação.
+Thank you for contributing to `goldenpath-idp`.
 
-## Critérios mínimos para PR
+## Contribution Workflow
 
-- Mudança alinhada ao contrato de Golden Path.
-- Validação local leve com `make check`.
-- Sem segredos no código ou histórico.
-- Atualização de ownership (`catalog-info.yaml`, `CODEOWNERS`) quando aplicável.
+1. Open an issue with context, impact, and proposed approach.
+2. Create a branch using `type/scope-description` (example: `feat/templates-worker-dlq`).
+3. Keep commits small and use Conventional Commits.
+4. Update affected docs (`docs/en`, `docs/pt-br`, runbooks, standards, ADRs).
+5. Open a pull request using the template and include risk, rollback, and validation plan.
 
-## Revisão
+## Minimum Pull Request Requirements
 
-- PRs de templates exigem revisão de plataforma.
-- PRs de segurança exigem revisão de pelo menos 1 owner técnico.
-- ADR obrigatória para mudanças arquiteturais.
+- Change aligns with Golden Path contracts.
+- Lightweight validation performed with `make check`.
+- No credentials, secrets, or private tokens in code/history.
+- Ownership references updated when needed (`catalog-info.yaml`, `CODEOWNERS`).
+- Documentation parity maintained between EN and PT-BR.
+
+## Review Policy
+
+- Template-related PRs require platform review.
+- Security-impacting PRs require at least one technical owner review.
+- Architectural changes require ADR updates.
+
+## Commit Convention
+
+Use Conventional Commits:
+
+- `feat: ...`
+- `fix: ...`
+- `docs: ...`
+- `ci: ...`
+- `chore: ...`
+
+## Code of Collaboration
+
+- Be precise and factual in technical discussions.
+- Prefer explicit trade-offs over implicit assumptions.
+- Preserve operational safety and backward compatibility when possible.
