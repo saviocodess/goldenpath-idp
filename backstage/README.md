@@ -1,30 +1,32 @@
+[Português (Brasil)](README.pt-BR.md) | **English**
+
 # Backstage Overlays
 
-Este diretório contém overlays para integrar os Golden Paths no Backstage sem gerar o app neste ambiente restrito.
+This directory contains overlays to integrate Golden Paths into an existing Backstage instance without generating the Backstage app in this constrained workspace.
 
-## Pré-requisito (em máquina real)
+## Prerequisite (real machine)
 
-Neste ambiente **não** é permitido executar bootstrap pesado. Em uma máquina com espaço/disco adequados:
+In a machine with proper disk/network capacity:
 
 ```bash
 npx @backstage/create-app@latest
 ```
 
-## Como aplicar os overlays
+## How to apply overlays
 
-1. Gere o Backstage em máquina real.
-2. Copie os arquivos de `backstage/overlays/` para o repositório Backstage gerado, preservando estrutura.
-3. Mescle o conteúdo de `backstage/overlays/app-config.overlay.yaml` no `app-config.yaml` do Backstage.
-4. Confirme que as entidades de catálogo em `backstage/overlays/catalog/locations.yaml` estão registradas.
-5. Reinicie Backstage e valide templates no Scaffolder.
+1. Generate Backstage in a real environment.
+2. Copy files from `backstage/overlays/` preserving paths.
+3. Merge `backstage/overlays/app-config.overlay.yaml` into Backstage `app-config.yaml`.
+4. Ensure catalog entities in `backstage/overlays/catalog/locations.yaml` are reachable.
+5. Restart Backstage and validate templates in Scaffolder.
 
-## Registro de templates e catálogo
+## Catalog and templates registration
 
-- `catalog/locations.yaml` registra locations para templates e entidades de sistema.
-- `scaffolder/templates/*.yaml` define os dois Golden Paths:
+- `catalog/locations.yaml` registers main template and system locations.
+- `scaffolder/templates/*.yaml` defines two Golden Paths:
   - `microservice-http`
   - `worker-event`
 
-## Observação importante
+## Important note
 
-Os templates apontam para os skeletons no GitHub deste repositório. Se você fizer fork/clone para outra organização, atualize as URLs dos templates.
+Template URLs reference this repository. If you use a fork/another organization, update the URLs accordingly.

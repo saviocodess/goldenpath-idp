@@ -1,17 +1,18 @@
+[Português (Brasil)](README.pt-BR.md) | **English**
+
 # ${{ values.name }}
 
-Worker assíncrono em Node.js + TypeScript criado a partir do Golden Path `worker-event`.
+Node.js + TypeScript asynchronous worker generated from the `worker-event` Golden Path.
 
-## Contratos entregues
+## Delivered Contracts
 
-- Loop de consumo com retry e exponential backoff
-- Logs estruturados em JSON
-- Métricas básicas em memória
-- Endpoint opcional `/metrics`
-- Stub de integração com DLQ
-- Pontos de instrumentação OpenTelemetry
+- Simulated consumption loop with retry and exponential backoff
+- JSON structured logging
+- In-memory metrics with optional `/metrics`
+- DLQ integration stub
+- OpenTelemetry instrumentation points
 
-## Executar localmente
+## Run locally
 
 ```bash
 corepack enable
@@ -19,27 +20,31 @@ yarn install
 yarn dev
 ```
 
-## Build e execução
+## Build and run
 
 ```bash
 yarn build
 yarn start
 ```
 
-## Métricas
+## Metrics
 
-- Defina `METRICS_PORT=9464` para expor endpoint `GET /metrics` no processo.
-- Métricas disponíveis: `worker_processed_total`, `worker_failed_total`, `worker_retried_total`, `worker_dlq_total`.
+- Set `METRICS_PORT=9464` to expose `GET /metrics`.
+- Exported counters:
+  - `worker_processed_total`
+  - `worker_failed_total`
+  - `worker_retried_total`
+  - `worker_dlq_total`
 
 ## DLQ
 
-A função `sendToDlq` em `src/worker.ts` é um stub. Em produção, conecte com fila dedicada (ex.: SQS DLQ, Kafka dead-letter topic).
+`sendToDlq` in `src/worker.ts` is a stub. In production, integrate with your messaging provider dead-letter strategy.
 
-## OpenTelemetry (instruções)
+## OpenTelemetry
 
-1. O projeto já inclui `src/otel.ts` com bootstrap inicial e logs de configuração.
-2. Em produção, substitua o bootstrap simplificado por `@opentelemetry/sdk-node` e instrumentações do runtime.
-3. Configure variáveis mínimas:
+1. `src/otel.ts` already includes a lightweight bootstrap.
+2. In production, replace it with `@opentelemetry/sdk-node` and runtime instrumentation.
+3. Configure baseline variables:
 
 ```bash
 export OTEL_SERVICE_NAME=${{ values.name }}
@@ -49,4 +54,4 @@ export OTEL_TRACES_SAMPLER_ARG=0.1
 export OTEL_DEBUG=false
 ```
 
-4. Mantenha os spans de processamento já previstos em `src/worker.ts`.
+4. Keep worker spans in `src/worker.ts` for processing correlation.

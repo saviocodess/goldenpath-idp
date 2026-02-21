@@ -1,16 +1,18 @@
+[Português (Brasil)](README.pt-BR.md) | **English**
+
 # ${{ values.name }}
 
-Serviço HTTP em Node.js + TypeScript criado a partir do Golden Path `microservice-http`.
+Node.js + TypeScript HTTP service generated from the `microservice-http` Golden Path.
 
-## Contratos entregues
+## Delivered Contracts
 
-- Endpoints `GET /health` e `GET /ready`
-- Logs estruturados em JSON
-- Correlação por `request_id` em middleware
-- Pontos de instrumentação OpenTelemetry
-- Pipeline de CI com lint, typecheck, testes e build
+- `GET /health` and `GET /ready`
+- JSON structured logs
+- `request_id` correlation middleware
+- OpenTelemetry instrumentation points
+- CI pipeline with lint, typecheck, tests, and build
 
-## Executar localmente
+## Run locally
 
 ```bash
 corepack enable
@@ -18,7 +20,7 @@ yarn install
 yarn dev
 ```
 
-## Build e execução
+## Build and run
 
 ```bash
 yarn build
@@ -32,12 +34,11 @@ docker build -t ${{ values.name }}:local .
 docker run --rm -p 3000:3000 ${{ values.name }}:local
 ```
 
-## OpenTelemetry (instruções)
+## OpenTelemetry
 
-1. O projeto já inclui `src/otel.ts` com bootstrap inicial e logs de configuração.
-2. Em produção, substitua o bootstrap simplificado por `@opentelemetry/sdk-node` e instrumentações do runtime.
-3. Configure variáveis mínimas:
-2. Configure variáveis mínimas:
+1. `src/otel.ts` already includes a lightweight bootstrap.
+2. In production, replace it with `@opentelemetry/sdk-node` and runtime instrumentation.
+3. Configure baseline variables:
 
 ```bash
 export OTEL_SERVICE_NAME=${{ values.name }}
@@ -47,4 +48,4 @@ export OTEL_TRACES_SAMPLER_ARG=0.1
 export OTEL_DEBUG=false
 ```
 
-4. Mantenha os spans de request já previstos em `src/server.ts` para correlação HTTP.
+4. Keep request spans in `src/server.ts` for HTTP correlation.
