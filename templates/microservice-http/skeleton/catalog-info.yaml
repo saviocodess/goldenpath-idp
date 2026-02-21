@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  description: API HTTP gerada pelo Golden Path microservice-http
+  tags:
+    - nodejs
+    - typescript
+    - http
+    - golden-path
+  annotations:
+    github.com/project-slug: ${{ values.repo_owner }}/${{ values.repo_name }}
+spec:
+  type: service
+  lifecycle: production
+  owner: ${{ values.owner }}
+  system: idp-platform

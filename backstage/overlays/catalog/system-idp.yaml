@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: idp-platform
+  description: Sistema de referência para componentes gerados pela plataforma interna
+spec:
+  owner: group:default/platform-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  description: Time responsável pela manutenção da plataforma interna
+spec:
+  type: team
+  profile:
+    displayName: Platform Team
+    email: platform@example.com
+  children: []

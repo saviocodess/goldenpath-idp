@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: goldenpath-idp-locations
+  description: Locations principais para templates e catálogo do IDP
+spec:
+  type: url
+  targets:
+    - https://raw.githubusercontent.com/saviocodess/goldenpath-idp/main/backstage/overlays/catalog/system-idp.yaml
+    - https://raw.githubusercontent.com/saviocodess/goldenpath-idp/main/backstage/overlays/scaffolder/templates/microservice-http.yaml
+    - https://raw.githubusercontent.com/saviocodess/goldenpath-idp/main/backstage/overlays/scaffolder/templates/worker-event.yaml

@@ -1,0 +1,12 @@
+app:
+  title: GoldenPath IDP Portal
+
+catalog:
+  locations:
+    - type: url
+      target: https://raw.githubusercontent.com/saviocodess/goldenpath-idp/main/backstage/overlays/catalog/locations.yaml
+
+scaffolder:
+  defaultAuthor:
+    name: Golden Path IDP
+    email: platform@example.com
