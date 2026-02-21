@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-microservice-http
+spec:
+  selector:
+    app: example-microservice-http
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000

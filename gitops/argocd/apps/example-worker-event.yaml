@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-worker-event
+  namespace: argocd
+spec:
+  project: idp-apps
+  source:
+    repoURL: https://github.com/saviocodess/goldenpath-idp.git
+    targetRevision: main
+    path: gitops/argocd/manifests/examples/worker-event
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: worker-event
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

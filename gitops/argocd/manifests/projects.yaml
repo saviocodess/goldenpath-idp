@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: idp-apps
+  namespace: argocd
+spec:
+  description: Projetos e aplicações geradas pelos Golden Paths do IDP
+  sourceRepos:
+    - https://github.com/saviocodess/goldenpath-idp.git
+  destinations:
+    - namespace: microservice-http
+      server: https://kubernetes.default.svc
+    - namespace: worker-event
+      server: https://kubernetes.default.svc
+    - namespace: idp-platform
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

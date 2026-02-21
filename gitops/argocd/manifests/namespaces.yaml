@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: microservice-http
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: worker-event
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: idp-platform

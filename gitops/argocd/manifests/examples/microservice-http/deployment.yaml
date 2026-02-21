@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-microservice-http
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: example-microservice-http
+  template:
+    metadata:
+      labels:
+        app: example-microservice-http
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/microservice-http:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: SERVICE_NAME
+              value: "example-microservice-http"
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15

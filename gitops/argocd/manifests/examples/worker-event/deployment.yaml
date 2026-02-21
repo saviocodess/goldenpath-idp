@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-worker-event
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-worker-event
+  template:
+    metadata:
+      labels:
+        app: example-worker-event
+    spec:
+      containers:
+        - name: worker
+          image: ghcr.io/example/worker-event:0.1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SERVICE_NAME
+              value: "example-worker-event"
+            - name: METRICS_PORT
+              value: "9464"
+          ports:
+            - name: metrics
+              containerPort: 9464
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 9464
+            initialDelaySeconds: 15
+            periodSeconds: 30

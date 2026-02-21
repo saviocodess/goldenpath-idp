@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-microservice-http
+  namespace: argocd
+spec:
+  project: idp-apps
+  source:
+    repoURL: https://github.com/saviocodess/goldenpath-idp.git
+    targetRevision: main
+    path: gitops/argocd/manifests/examples/microservice-http
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: microservice-http
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
