@@ -1,0 +1,48 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare release notes
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          version="${tag#v}"
+          {
+            echo "# ${tag}"
+            echo
+            echo "Resumo das mudanças:"
+            awk -v version="${version}" '
+              $0 ~ "^## \\[" version "\\]" { capture=1; next }
+              capture == 1 && /^## \\[/ { exit }
+              capture == 1 { print }
+            ' CHANGELOG.md
+          } > RELEASE_NOTES.md
+
+      - name: Package docs artifact
+        run: |
+          tar -czf goldenpath-idp-docs-${GITHUB_REF_NAME}.tar.gz docs README.md SECURITY.md CONTRIBUTING.md
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ github.ref_name }}
+          path: goldenpath-idp-docs-${{ github.ref_name }}.tar.gz
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_NOTES.md
+          files: |
+            goldenpath-idp-docs-${{ github.ref_name }}.tar.gz

@@ -1,0 +1,81 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_ci:
+        description: "Executa install/lint/test/build completo"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+env:
+  ENABLE_FULL_CI_DEFAULT: "false"
+
+jobs:
+  repo-ci:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Resolve full CI mode
+        id: mode
+        run: |
+          full_ci="${ENABLE_FULL_CI_DEFAULT}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.full_ci }}" ]; then
+            full_ci="${{ github.event.inputs.full_ci }}"
+          fi
+          if [ -n "${{ vars.ENABLE_FULL_CI }}" ]; then
+            full_ci="${{ vars.ENABLE_FULL_CI }}"
+          fi
+          echo "full_ci=${full_ci}" >> "$GITHUB_OUTPUT"
+          echo "Modo full_ci=${full_ci}"
+
+      - name: Static checks (always)
+        run: |
+          node scripts/check-deps-duplicates.mjs
+          bash scripts/check-yaml.sh
+
+      - name: Install dependencies (full CI enabled)
+        if: ${{ steps.mode.outputs.full_ci == 'true' }}
+        run: |
+          if [ -f yarn.lock ]; then
+            yarn install --immutable
+          else
+            yarn install
+          fi
+
+      - name: Install skipped
+        if: ${{ steps.mode.outputs.full_ci != 'true' }}
+        run: echo "full_ci=false. Habilite via workflow_dispatch input ou variável ENABLE_FULL_CI=true."
+
+      - name: Lint (full CI)
+        if: ${{ steps.mode.outputs.full_ci == 'true' }}
+        run: yarn lint
+
+      - name: Test (full CI)
+        if: ${{ steps.mode.outputs.full_ci == 'true' }}
+        run: yarn test
+
+      - name: Build (full CI)
+        if: ${{ steps.mode.outputs.full_ci == 'true' }}
+        run: yarn build
