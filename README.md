@@ -1,94 +1,76 @@
-# Golden Path IDP
+[Português (Brasil)](README.pt-BR.md) | **English**
 
-Plataforma interna de engenharia para acelerar criação de serviços com padrão de produção desde o primeiro commit.
+# GoldenPath IDP
 
-## Visão geral
+A production-oriented Internal Developer Platform (IDP) repository designed to reduce service bootstrap time, enforce engineering standards, and improve operational reliability.
 
-`goldenpath-idp` consolida um stack de referência para times de produto e plataforma:
+## Executive Summary
 
-- Provisionamento self-service via Backstage Scaffolder
-- Templates prontos para serviço HTTP e worker assíncrono
-- Governança técnica com padrões prescritivos
-- Entrega declarativa com Argo CD (app-of-apps)
-- Operação orientada a observabilidade, segurança e ownership
+This repository provides a practical platform engineering baseline:
 
-## Objetivo de mercado
+- Self-service service provisioning through Backstage Scaffolder templates
+- Reference Golden Paths for HTTP APIs and asynchronous workers
+- GitOps deployment model with Argo CD app-of-apps
+- Prescriptive standards for observability, security, CI/CD, and ownership
+- Operational runbooks and architecture decisions for real-world incidents
 
-Organizações em crescimento sofrem com variabilidade de setup, observabilidade inconsistente e CI/CD frágil. O objetivo do IDP é transformar isso em capacidade operacional repetível.
+## Repository Scope
 
-Resultados esperados (alvo de adoção):
+- `templates/microservice-http`: Node.js/TypeScript HTTP service blueprint
+- `templates/worker-event`: Node.js/TypeScript async worker blueprint
+- `backstage/overlays`: overlays to register templates and catalog entities
+- `gitops/argocd`: root app, child apps, and deployment manifests
+- `docs/en`: full English documentation
+- `docs/pt-br`: full Portuguese (Brazil) documentation
 
-- Reduzir tempo de bootstrap de novos serviços de dias para horas
-- Aumentar conformidade mínima de engenharia para >90% dos serviços novos
-- Diminuir MTTR com contratos uniformes de logs, health checks e runbooks
-
-## Problema que este repositório resolve
-
-Sem plataforma:
-
-- Cada squad cria bootstrap próprio e repete decisões básicas
-- Segurança e observabilidade entram tarde no ciclo
-- Deploy e rollback têm fluxos diferentes por time
-
-Com este repositório:
-
-- O serviço nasce com contrato padrão e CI mínimo
-- O catálogo Backstage já conhece owners, templates e sistema
-- Deploy segue GitOps com trilha de auditoria por PR
-
-## Entregáveis principais
-
-- `templates/microservice-http`: API Node.js/TS com `/health`, `/ready`, logs JSON, `request_id`, pontos de OTel
-- `templates/worker-event`: worker Node.js/TS com retry/backoff, métricas e stub de DLQ
-- `backstage/overlays`: integração de catálogo e templates sem gerar Backstage aqui
-- `gitops/argocd`: root app + apps filhas + manifests de referência
-- `docs/standards`, `docs/runbooks`, `docs/adr`, `docs/threat-model.md`
-
-## Arquitetura
+## Architecture
 
 ```mermaid
 flowchart LR
-  Dev[Developer] -->|Self-service| BS[Backstage Scaffolder]
-  BS -->|Generate Repo| GH[GitHub Service Repo]
-  GH -->|PR + CI gates| GHA[GitHub Actions]
-  GH -->|Declarative manifests| GOPS[GitOps Paths]
-  GOPS -->|Sync| ARGO[Argo CD]
-  ARGO -->|Apply| K8S[Kubernetes]
-  K8S --> OTEL[OTel Collector]
-  K8S --> OBS[Logs + Metrics + Traces]
-  OBS --> ONCALL[Runbooks + On-call]
+  DEV[Developer] -->|Self-service| BS[Backstage Scaffolder]
+  BS -->|Generate Repository| GH[GitHub]
+  GH -->|PR + Quality Gates| CI[GitHub Actions]
+  GH -->|Declarative manifests| GITOPS[GitOps Paths]
+  GITOPS -->|Sync| ARGO[Argo CD]
+  ARGO -->|Deploy| K8S[Kubernetes]
+  K8S --> OBS[Logs, Metrics, Traces]
+  OBS --> OPS[Runbooks and On-call]
 ```
 
-## Como usar
+## How To Use
 
-### 1) Preparar Backstage (máquina real)
+### 1. Bootstrap Backstage in a real machine
 
-Este ambiente está em modo restrito; bootstrap pesado não é executado aqui.
+This workspace is intentionally constrained; heavy bootstrap is not executed here.
 
 ```bash
 npx @backstage/create-app@latest
 ```
 
-Aplique overlays de `backstage/overlays` conforme `backstage/README.md`.
+Then apply this repository overlays from `backstage/overlays` as documented in `backstage/README.md`.
 
-### 2) Registrar catálogo e templates
+### 2. Register templates in Backstage catalog
 
-- Referencie `backstage/overlays/catalog/locations.yaml` no `app-config.yaml`
-- Confirme no Scaffolder os templates:
-  - `microservice-http`
-  - `worker-event`
+Add catalog location pointing to:
 
-### 3) Gerar um serviço
+- `backstage/overlays/catalog/locations.yaml`
 
-No Backstage, selecione template e informe:
+Confirm templates are visible in Scaffolder:
 
-- nome técnico (`kebab-case`)
-- owner (entidade de catálogo)
-- repositório GitHub de destino
+- `microservice-http`
+- `worker-event`
 
-### 4) Ativar GitOps com Argo CD
+### 3. Generate a service using Golden Paths
 
-Fluxo recomendado em ambiente real:
+Provide template parameters:
+
+- service name (`kebab-case`)
+- owner entity
+- target GitHub repository
+
+### 4. Enable GitOps with Argo CD
+
+Apply manifests in order (outside this constrained environment):
 
 ```bash
 kubectl create namespace argocd
@@ -99,63 +81,20 @@ kubectl apply -f gitops/argocd/manifests/repositories.yaml
 kubectl apply -f gitops/argocd/app-of-apps/root-app.yaml
 ```
 
-Como adicionar um novo app via PR:
-
-1. Criar `gitops/argocd/apps/example-novo-app.yaml`
-2. Criar manifests em `gitops/argocd/manifests/examples/novo-app/`
-3. Abrir PR com risco, impacto e rollback
-4. Após merge, Argo CD sincroniza automaticamente
-
-### 5) Rodar validações leves do repositório
+### 5. Run lightweight repository checks
 
 ```bash
 make check
 ```
 
-O target executa:
+## Documentation
 
-- `scripts/check-deps-duplicates.mjs`
-- `scripts/check-yaml.sh`
-
-## Roteiro de demo
-
-Resumo executivo da demo (20-30 min):
-
-1. Problema de engenharia e proposta da plataforma
-2. Geração de serviço HTTP pelo Scaffolder
-3. Evidência de contratos técnicos no código gerado
-4. Geração de worker com retry/backoff + DLQ stub
-5. Fluxo de CI/security/release
-6. App-of-apps no Argo CD
-7. Fechamento com runbooks e threat model
-
-Versão detalhada: `docs/demo-script.md`.
-
-## Padrões de engenharia
-
-- Logging: `docs/standards/logging.md`
-- OpenTelemetry: `docs/standards/observability-otel.md`
-- Health checks: `docs/standards/health-checks.md`
-- CI/CD: `docs/standards/ci-cd.md`
-- Segurança: `docs/standards/security-baseline.md`
-- Ownership e on-call: `docs/standards/ownership-and-oncall.md`
-- Contratos dos templates: `docs/standards/golden-path-contracts.md`
-
-## Makefile (dry-run friendly)
-
-Todos os targets da raiz são seguros para ambiente restrito e não executam bootstrap automático de dependências:
-
-- `make bootstrap`
-- `make dev`
-- `make validate`
-- `make docs`
-- `make gitops`
-- `make templates`
-- `make check`
+- English index: `docs/en/index.md`
+- Portuguese index: `docs/pt-br/index.md`
 
 ## Roadmap
 
-- v0.2.0: policy-as-code para gates de segurança e conformidade
-- v0.3.0: novo Golden Path de BFF/frontend e scorecards de plataforma
-- v0.4.0: trilha de SLO/SLI com painéis padrão por serviço
-- v0.5.0: métricas de adoção e custo de plataforma por domínio
+- `v0.2.x`: bilingual documentation hardening + recruiter-facing narrative
+- `v0.3.x`: additional Golden Paths and scorecards
+- `v0.4.x`: SLO/SLI operating model and dashboards
+- `v0.5.x`: platform adoption metrics by domain/team
