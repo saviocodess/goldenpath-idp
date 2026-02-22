@@ -59,12 +59,19 @@ jobs:
           node scripts/check-deps-duplicates.mjs
           bash scripts/check-yaml.sh
           bash scripts/check-i18n-parity.sh
+          bash scripts/check-shell-syntax.sh
+          bash scripts/check-markdown-links.sh
 
       - name: Install dependencies (full CI enabled)
         if: ${{ steps.mode.outputs.full_ci == 'true' }}
         run: |
           if [ -f yarn.lock ]; then
-            yarn install --immutable
+            yarn_major="$(yarn --version | cut -d. -f1)"
+            if [ "${yarn_major}" -ge 2 ]; then
+              yarn install --immutable
+            else
+              yarn install --frozen-lockfile
+            fi
           else
             yarn install
           fi

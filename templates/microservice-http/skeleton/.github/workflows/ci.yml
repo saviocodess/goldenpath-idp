@@ -30,7 +30,12 @@ jobs:
       - name: Install dependencies
         run: |
           if [ -f yarn.lock ]; then
-            yarn install --immutable
+            yarn_major="$(yarn --version | cut -d. -f1)"
+            if [ "${yarn_major}" -ge 2 ]; then
+              yarn install --immutable
+            else
+              yarn install --frozen-lockfile
+            fi
           else
             yarn install
           fi
