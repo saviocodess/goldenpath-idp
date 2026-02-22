@@ -8,9 +8,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,7 +37,12 @@ jobs:
 
       - name: Package docs artifact
         run: |
-          tar -czf goldenpath-idp-docs-${GITHUB_REF_NAME}.tar.gz docs README.md SECURITY.md CONTRIBUTING.md
+          tar -czf goldenpath-idp-docs-${GITHUB_REF_NAME}.tar.gz \
+            docs \
+            README.md README.pt-BR.md \
+            SECURITY.md SECURITY.pt-BR.md \
+            CONTRIBUTING.md CONTRIBUTING.pt-BR.md \
+            CHANGELOG.md LICENSE
 
       - name: Upload docs artifact
         uses: actions/upload-artifact@v4

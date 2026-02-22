@@ -13,10 +13,18 @@ permissions:
   security-events: write
   actions: read
 
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   dependency-review:
-    if: ${{ github.event_name == 'pull_request' }}
+    # Requires GitHub Dependency Graph support in the repository settings.
+    # Enable by setting repository variable ENABLE_DEPENDENCY_REVIEW=true
+    # after confirming the feature is active for this repository.
+    if: ${{ github.event_name == 'pull_request' && vars.ENABLE_DEPENDENCY_REVIEW == 'true' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,6 +33,7 @@ jobs:
 
   codeql:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       actions: read
       contents: read
@@ -43,6 +52,7 @@ jobs:
 
   secret-scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4

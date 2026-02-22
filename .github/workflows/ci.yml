@@ -19,9 +19,14 @@ on:
 env:
   ENABLE_FULL_CI_DEFAULT: "false"
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   repo-ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:

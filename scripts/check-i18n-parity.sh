@@ -63,6 +63,30 @@ check_language_switch "CONTRIBUTING.pt-BR.md" 'english'
 check_language_switch "SECURITY.md" 'portugu[eê]s'
 check_language_switch "SECURITY.pt-BR.md" 'english'
 
+# check language switch and pairing in other high-visibility bilingual docs
+check_language_switch "backstage/README.md" 'portugu[eê]s'
+check_language_switch "backstage/README.pt-BR.md" 'english'
+check_language_switch "templates/microservice-http/skeleton/README.md" 'portugu[eê]s'
+check_language_switch "templates/microservice-http/skeleton/README.pt-BR.md" 'english'
+check_language_switch "templates/worker-event/skeleton/README.md" 'portugu[eê]s'
+check_language_switch "templates/worker-event/skeleton/README.pt-BR.md" 'english'
+
+check_pair() {
+  local en_file="$1"
+  local pt_file="$2"
+  if [[ ! -f "$en_file" || ! -f "$pt_file" ]]; then
+    echo "[ERRO] Par bilíngue ausente: $en_file <-> $pt_file"
+    has_error=1
+  fi
+}
+
+check_pair "README.md" "README.pt-BR.md"
+check_pair "CONTRIBUTING.md" "CONTRIBUTING.pt-BR.md"
+check_pair "SECURITY.md" "SECURITY.pt-BR.md"
+check_pair "backstage/README.md" "backstage/README.pt-BR.md"
+check_pair "templates/microservice-http/skeleton/README.md" "templates/microservice-http/skeleton/README.pt-BR.md"
+check_pair "templates/worker-event/skeleton/README.md" "templates/worker-event/skeleton/README.pt-BR.md"
+
 if [[ "$has_error" -ne 0 ]]; then
   echo "Validação de paridade i18n falhou."
   exit 1
