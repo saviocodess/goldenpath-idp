@@ -21,27 +21,64 @@ Este repositório entrega uma base prática de engenharia de plataforma:
 
 ## Perfil Profissional
 
+Este repositório também funciona como artefato de portfólio para vagas de engenharia de plataforma. A estrutura foi
+projetada para demonstrar decisões de arquitetura, padrões de entrega, pensamento operacional e developer experience orientada a produção.
+
 - Nome: `NAME_PLACEHOLDER`
-- Cargo: `TITLE_PLACEHOLDER`
-- Localização/Fuso: `LOCATION_TIMEZONE_PLACEHOLDER`
+- Título Profissional: `TITLE_PLACEHOLDER`
+- Localização / Fuso: `LOCATION_TIMEZONE_PLACEHOLDER`
+- Idiomas: `LANGUAGES_PLACEHOLDER` (exemplo: `PT-BR, English`)
 - LinkedIn: `LINKEDIN_PLACEHOLDER`
 - Email: `EMAIL_PLACEHOLDER`
+- Currículo / CV: `RESUME_LINK_PLACEHOLDER`
+- Portfólio / Site: `PORTFOLIO_LINK_PLACEHOLDER`
+- Disponibilidade: `AVAILABILITY_PLACEHOLDER` (exemplo: `Disponível para oportunidades Senior/Staff em Platform Engineering`)
+
+## Proposta de Valor em Platform Engineering
+
+- Construir plataformas internas self-service que reduzem atrito no bootstrap de serviços sem perder governança.
+- Definir padrões de engenharia aplicáveis (observabilidade, segurança, CI/CD, ownership) e documentá-los para adoção em escala.
+- Traduzir decisões arquiteturais em templates reutilizáveis, runbooks e padrões de entrega GitOps.
+- Projetar para a realidade operacional: incidentes, rollback, guardrails de plataforma e manutenção contínua.
+
+## O que empresas podem avaliar neste repositório
+
+- Qualidade arquitetural e trade-offs (ADRs, limites de escopo, não-objetivos)
+- Design de developer experience (Golden Paths, templates de scaffolder, skeletons executáveis)
+- Maturidade operacional (runbooks, threat model, workflows de segurança, gates de CI)
+- Pensamento de modelo de entrega (GitOps app-of-apps, ownership, disciplina de release/versionamento)
 
 ## Por que este repositório prova senioridade
 
 - Decisões de arquitetura com trade-offs explícitos:
   - `docs/pt-br/adr/0001-idp-scope-and-non-goals.md`
   - `docs/pt-br/adr/0003-gitops-argocd-app-of-apps.md`
+  - `docs/pt-br/adr/0004-templates-design-contract.md`
 - Prontidão operacional com runbooks de padrão produção:
   - `docs/pt-br/runbooks/deploy-failure.md`
   - `docs/pt-br/runbooks/rollback.md`
+  - `docs/pt-br/runbooks/incident-template.md`
 - Segurança e ownership de risco:
   - `docs/pt-br/threat-model.md`
+  - `docs/pt-br/standards/security-baseline.md`
   - `.github/workflows/security.yml`
 - Governança de plataforma e gates de qualidade:
   - `docs/pt-br/standards/ci-cd.md`
-  - `docs/pt-br/standards/security-baseline.md`
+  - `docs/pt-br/standards/golden-path-contracts.md`
   - `.github/workflows/ci.yml`
+- Qualidade de implementação nos templates (não só documentação):
+  - `templates/microservice-http/skeleton/src/`
+  - `templates/worker-event/skeleton/src/`
+  - `templates/*/skeleton/.github/workflows/ci.yml`
+
+## Tópicos para Entrevista / Discussão Técnica (sugestão)
+
+- Estratégia de adoção de plataforma e governança de Golden Paths
+- Design de contrato de templates no Backstage e ciclo de vida
+- Modelo operacional GitOps com Argo CD (app-of-apps) e fronteiras entre times
+- Baseline de observabilidade (logs, traces, métricas) em serviços gerados
+- Trade-offs entre guardrails de CI/CD e autonomia de desenvolvedores
+- Pragmatismo em automação de segurança para times menores vs ambientes enterprise
 
 ## Metas de Impacto da Plataforma
 
@@ -49,6 +86,14 @@ Este repositório entrega uma base prática de engenharia de plataforma:
 - Conformidade de Golden Path em novos serviços: >90%
 - Melhoria de MTTR via runbooks e telemetria padronizados
 - Governança de deploy por PR + GitOps + checks obrigatórios
+
+## Checklist de Customização (antes de compartilhar com recrutadores)
+
+- Substitua todos os valores `*_PLACEHOLDER` neste README.
+- Adicione links reais de LinkedIn, currículo e portfólio.
+- Mantenha 2-4 repositórios fixados alinhados ao cargo alvo (platform/backend/devex).
+- Atualize a linha de disponibilidade conforme seu momento de contratação.
+- Adicione métricas concretas de impacto quando puder divulgá-las com segurança.
 
 ## Escopo do Repositório
 

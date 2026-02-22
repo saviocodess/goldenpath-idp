@@ -21,27 +21,64 @@ This repository provides a practical platform engineering baseline:
 
 ## Professional Profile
 
+This repository is also a portfolio artifact for platform engineering roles. It is intentionally structured to demonstrate
+architecture decisions, delivery standards, operational thinking, and production-oriented developer experience.
+
 - Name: `NAME_PLACEHOLDER`
-- Role: `TITLE_PLACEHOLDER`
-- Location/Timezone: `LOCATION_TIMEZONE_PLACEHOLDER`
+- Professional Title: `TITLE_PLACEHOLDER`
+- Location / Timezone: `LOCATION_TIMEZONE_PLACEHOLDER`
+- Languages: `LANGUAGES_PLACEHOLDER` (example: `PT-BR, English`)
 - LinkedIn: `LINKEDIN_PLACEHOLDER`
 - Email: `EMAIL_PLACEHOLDER`
+- Resume / CV: `RESUME_LINK_PLACEHOLDER`
+- Portfolio / Website: `PORTFOLIO_LINK_PLACEHOLDER`
+- Availability: `AVAILABILITY_PLACEHOLDER` (example: `Open to Senior/Staff Platform Engineering opportunities`)
+
+## Platform Engineering Value Proposition
+
+- Build self-service developer platforms that reduce service bootstrap friction without sacrificing governance.
+- Define enforceable engineering standards (observability, security, CI/CD, ownership) and document them for adoption at scale.
+- Translate architecture decisions into reusable templates, runbooks, and GitOps delivery patterns.
+- Design for operational reality: incident response, rollback, platform safety rails, and maintainability.
+
+## What companies can evaluate in this repository
+
+- Platform architecture and trade-off quality (ADRs, scope boundaries, non-goals)
+- Developer experience design (Golden Paths, scaffolder templates, runnable skeletons)
+- Operational maturity (runbooks, threat model, security workflows, CI gates)
+- Delivery model thinking (GitOps app-of-apps, ownership model, release/versioning discipline)
 
 ## Why this repository proves seniority
 
 - Architecture decisions with explicit trade-offs:
   - `docs/en/adr/0001-idp-scope-and-non-goals.md`
   - `docs/en/adr/0003-gitops-argocd-app-of-apps.md`
+  - `docs/en/adr/0004-templates-design-contract.md`
 - Operational readiness with production-style runbooks:
   - `docs/en/runbooks/deploy-failure.md`
   - `docs/en/runbooks/rollback.md`
+  - `docs/en/runbooks/incident-template.md`
 - Security and risk ownership:
   - `docs/en/threat-model.md`
+  - `docs/en/standards/security-baseline.md`
   - `.github/workflows/security.yml`
 - Platform governance and quality gates:
   - `docs/en/standards/ci-cd.md`
-  - `docs/en/standards/security-baseline.md`
+  - `docs/en/standards/golden-path-contracts.md`
   - `.github/workflows/ci.yml`
+- Implementation quality in templates (not only docs):
+  - `templates/microservice-http/skeleton/src/`
+  - `templates/worker-event/skeleton/src/`
+  - `templates/*/skeleton/.github/workflows/ci.yml`
+
+## Interview / Technical Discussion Topics (suggested)
+
+- Platform adoption strategy and Golden Path governance
+- Backstage template contract design and lifecycle management
+- GitOps operating model with Argo CD (app-of-apps) and team boundaries
+- Observability baseline design (logs, traces, metrics) in generated services
+- CI/CD guardrails vs developer autonomy trade-offs
+- Security automation pragmatism in small teams vs enterprise environments
 
 ## Platform Impact Targets
 
@@ -49,6 +86,14 @@ This repository provides a practical platform engineering baseline:
 - Golden Path compliance for new services: >90%
 - MTTR improvement through standardized runbooks and telemetry
 - Deployment governance by PR + GitOps + mandatory checks
+
+## Customization Checklist (before sharing with recruiters)
+
+- Replace all `*_PLACEHOLDER` values in this README.
+- Add real links for LinkedIn, resume, and portfolio.
+- Keep 2-4 pinned repositories aligned with your target role (platform/backend/devex).
+- Update the "Availability" line to reflect your current hiring status.
+- Add concrete impact metrics once you can disclose them safely.
 
 ## Repository Scope
 
