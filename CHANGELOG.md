@@ -6,6 +6,30 @@ All notable changes to this project are documented in this file.
 
 - No pending entries.
 
+## [0.2.3] - 2026-02-22
+
+### Changed
+
+- Refactored `microservice-http` skeleton into a more maintainable runtime structure:
+  - `src/app.ts` (Express app composition)
+  - `src/config.ts` (validated runtime config parsing)
+  - improved JSON errors, request correlation, and graceful shutdown flow
+- Refactored `worker-event` skeleton for better testability and operations:
+  - `src/config.ts` (validated worker config parsing)
+  - deterministic/testable retry behavior and richer DLQ metadata
+  - signal-aware consume loop and metrics server lifecycle cleanup
+- Both skeletons now use `tsconfig.build.json` for production builds (excluding tests from `dist`).
+- Skeleton `package.json` scripts now include `verify` (lint + typecheck + tests) and `test:ci`.
+- Skeleton CI workflows hardened with `workflow_dispatch`, `concurrency`, `timeout-minutes`, and no lockfile-dependent `setup-node` cache.
+
+### Added
+
+- New template tests for configuration parsing (`tests/config.test.ts` in both skeletons).
+- Worker metrics improvements:
+  - `worker_attempt_total`
+  - Prometheus `HELP`/`TYPE` headers
+  - `GET /health` on the metrics server
+
 ## [0.2.2] - 2026-02-22
 
 ### Added
