@@ -6,6 +6,14 @@ All notable changes to this project are documented in this file.
 
 - No pending entries.
 
+## [0.2.1] - 2026-02-22
+
+### Fixed
+
+- CI workflow no longer fails when root `yarn.lock` is absent (`actions/setup-node` cache removed at repository level).
+- Security secret scan now uses full git history checkout for Gitleaks commit-range scans.
+- Release workflow release-notes extraction script fixed (`awk` pattern handling).
+
 ## [0.2.0] - 2026-02-21
 
 ### Added
