@@ -6,6 +6,27 @@ All notable changes to this project are documented in this file.
 
 - No pending entries.
 
+## [0.2.2] - 2026-02-22
+
+### Added
+
+- GitHub issue template configuration with security advisory routing and contributor/documentation links.
+- Status badges (CI, Security, Release, License) in `README.md` and `README.pt-BR.md`.
+
+### Changed
+
+- Bilingual PR/issue templates now capture risk, rollback, validation, and impact with EN/PT-BR guidance.
+- CI, security, and release workflows now use `concurrency` and job timeouts to reduce duplicate runs and improve stability.
+- Release workflow docs artifact now packages bilingual root docs plus `CHANGELOG.md` and `LICENSE`.
+- `scripts/check-i18n-parity.sh` now validates bilingual pairing/language switch for:
+  - `backstage/README*`
+  - `templates/*/skeleton/README*`
+
+### Fixed
+
+- `dependency-review` security job is now gated behind repository variable `ENABLE_DEPENDENCY_REVIEW=true`
+  to avoid false failures before GitHub Dependency Graph is enabled for the repository.
+
 ## [0.2.1] - 2026-02-22
 
 ### Fixed
