@@ -5,11 +5,13 @@
   "description": "Skeleton de Golden Path para API HTTP Node.js + TypeScript",
   "scripts": {
     "dev": "tsx src/server.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
     "typecheck": "tsc --noEmit",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:ci": "jest --runInBand --ci",
+    "verify": "yarn lint && yarn typecheck && yarn test"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
