@@ -2,6 +2,11 @@
 
 # GoldenPath IDP
 
+[![CI](https://img.shields.io/github/actions/workflow/status/saviocodess/goldenpath-idp/ci.yml?branch=main&label=CI)](https://github.com/saviocodess/goldenpath-idp/actions/workflows/ci.yml)
+[![Security](https://img.shields.io/github/actions/workflow/status/saviocodess/goldenpath-idp/security.yml?branch=main&label=Security)](https://github.com/saviocodess/goldenpath-idp/actions/workflows/security.yml)
+[![Release](https://img.shields.io/github/actions/workflow/status/saviocodess/goldenpath-idp/release.yml?label=Release)](https://github.com/saviocodess/goldenpath-idp/actions/workflows/release.yml)
+[![License](https://img.shields.io/github/license/saviocodess/goldenpath-idp)](LICENSE)
+
 A production-oriented Internal Developer Platform (IDP) repository designed to reduce service bootstrap time, enforce engineering standards, and improve operational reliability.
 
 ## Executive Summary
@@ -122,6 +127,17 @@ make check
 
 - English index: `docs/en/index.md`
 - Portuguese index: `docs/pt-br/index.md`
+
+## GitHub Repository Operations
+
+To keep checks green and make security automation fully functional:
+
+- Enable Dependency Graph in GitHub repository settings:
+  - `Settings -> Security -> Advanced Security / Dependency graph`
+- After dependency graph is active, set repository variable `ENABLE_DEPENDENCY_REVIEW=true`
+  to enable `.github/workflows/security.yml` dependency review job on pull requests.
+- Optional repository variable `ENABLE_FULL_CI=true` enables install/lint/test/build in `.github/workflows/ci.yml`.
+- Default CI mode remains lightweight (`make check`-equivalent checks only) to preserve portability in constrained environments.
 
 ## Roadmap
 

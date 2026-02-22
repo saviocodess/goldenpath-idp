@@ -1,25 +1,49 @@
 name: Feature request
-description: Proposta de melhoria para o IDP
+description: Improvement proposal for the IDP / Proposta de melhoria para o IDP
 title: "[feature] "
 labels:
   - enhancement
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose platform improvements with clear outcome, scope, and operational impact.
+        Proponha melhorias de plataforma com resultado claro, escopo e impacto operacional.
   - type: textarea
     id: objetivo
     attributes:
-      label: Objetivo
-      description: Qual resultado de negócio/engenharia será habilitado?
+      label: Outcome / Objetivo
+      description: EN: Which business/engineering outcome will this unlock? PT-BR: Qual resultado de negócio/engenharia será habilitado?
     validations:
       required: true
   - type: textarea
     id: proposta
     attributes:
-      label: Proposta
-      description: Descreva escopo, trade-offs e impacto operacional.
+      label: Proposal / Proposta
+      description: EN: Describe scope, trade-offs, and operational impact. PT-BR: Descreva escopo, trade-offs e impacto operacional.
     validations:
       required: true
   - type: textarea
     id: risco
     attributes:
-      label: Riscos e mitigação
-      description: Liste riscos técnicos e plano de rollback.
+      label: Risks and Mitigation / Riscos e mitigação
+      description: EN: List technical risks and rollback plan. PT-BR: Liste riscos técnicos e plano de rollback.
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Acceptance Criteria / Critérios de aceite
+      description: EN: What must be true to consider this done? PT-BR: O que precisa estar pronto para considerar concluído?
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / Área
+      options:
+        - Templates / Golden Paths
+        - Backstage overlays
+        - GitOps / Argo CD
+        - Documentation / Standards / Runbooks
+        - CI/CD / GitHub Actions
+        - Security
+        - Developer Experience / DevEx

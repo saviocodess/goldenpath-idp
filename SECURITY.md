@@ -26,6 +26,13 @@ Include:
 - Follow `docs/en/standards/security-baseline.md`.
 - Use `docs/en/threat-model.md` for threat and control references.
 
+## GitHub Security Features (Repository Setup)
+
+- Enable GitHub Dependency Graph in repository settings so Dependabot and dependency review can evaluate changes.
+- This repository gates the `dependency-review` workflow job behind the repository variable `ENABLE_DEPENDENCY_REVIEW=true`
+  to avoid false failures when dependency graph is not enabled yet.
+- Keep `.github/dependabot.yml` active and review update PRs with the same standards (risk, rollback, docs impact).
+
 ## Supported Versions
 
 This repository currently supports the latest `main` branch for security updates.

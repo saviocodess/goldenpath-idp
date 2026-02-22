@@ -1,25 +1,42 @@
 name: Bug report
-description: Reporte um problema funcional no IDP
+description: Report a functional problem in the IDP / Reporte um problema funcional no IDP
 title: "[bug] "
 labels:
   - bug
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for reproducible issues in templates, GitOps, Backstage overlays, docs checks, or workflows.
+        Use este formulário para problemas reproduzíveis em templates, GitOps, overlays do Backstage, checks de docs ou workflows.
   - type: textarea
     id: problema
     attributes:
-      label: Problema
-      description: Descreva comportamento observado e esperado.
+      label: Problem / Problema
+      description: EN: Describe observed vs expected behavior. PT-BR: Descreva comportamento observado vs esperado.
     validations:
       required: true
   - type: textarea
     id: impacto
     attributes:
-      label: Impacto
-      description: Qual impacto no fluxo de plataforma/produto?
+      label: Impact / Impacto
+      description: EN: Business/engineering impact and urgency. PT-BR: Impacto no fluxo de plataforma/produto e urgência.
     validations:
       required: true
   - type: textarea
     id: reproduzir
     attributes:
-      label: Passos para reproduzir
-      description: Inclua comandos, paths e evidências.
+      label: Reproduction Steps / Passos para reproduzir
+      description: EN: Include commands, paths, and evidence. PT-BR: Inclua comandos, paths e evidências.
+    validations:
+      required: true
+  - type: textarea
+    id: ambiente
+    attributes:
+      label: Environment / Ambiente
+      description: EN: Branch, workflow run URL, OS, tool versions. PT-BR: Branch, URL do workflow, SO, versões de ferramentas.
+  - type: textarea
+    id: mitigacao
+    attributes:
+      label: Current Mitigation / Mitigação atual
+      description: EN: Workaround or rollback if any. PT-BR: Contorno ou rollback atual, se existir.
