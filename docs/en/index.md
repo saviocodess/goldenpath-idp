@@ -7,6 +7,7 @@ This section contains the full English documentation set for platform architectu
 ## Start Here
 
 - [Getting Started (Real Use)](getting-started.md)
+- [GitOps / Argo CD Operations Guide](gitops-argocd-operations.md)
 - [FAQ](faq.md)
 - [Glossary](glossary.md)
 
@@ -14,11 +15,13 @@ This section contains the full English documentation set for platform architectu
 
 - Platform Engineer / DevEx Engineer:
   - `getting-started.md`
+  - `gitops-argocd-operations.md`
   - `standards/golden-path-contracts.md`
   - `adr/0004-templates-design-contract.md`
   - `runbooks/deploy-failure.md`
 - Engineering Manager / Head of Engineering:
   - `getting-started.md`
+  - `gitops-argocd-operations.md`
   - `adr/0001-idp-scope-and-non-goals.md`
   - `adr/0003-gitops-argocd-app-of-apps.md`
   - `standards/ci-cd.md`

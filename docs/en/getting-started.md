@@ -114,6 +114,10 @@ Suggested local smoke checks (generated service repo):
 
 This repository includes ready-to-apply Argo CD baseline manifests and example apps.
 
+Detailed GitOps operations and customization guide:
+
+- `docs/en/gitops-argocd-operations.md`
+
 Apply in order (outside this constrained environment):
 
 ```bash
@@ -164,4 +168,5 @@ To fully enable security automation:
 
 - [FAQ](faq.md)
 - [Glossary](glossary.md)
+- [GitOps / Argo CD Operations Guide](gitops-argocd-operations.md)
 - [Threat Model](threat-model.md)

@@ -7,6 +7,7 @@ Esta seção concentra a documentação completa em português para arquitetura 
 ## Comece por Aqui
 
 - [Getting Started (Uso Real)](getting-started.md)
+- [Guia de Operação GitOps / Argo CD](gitops-argocd-operations.md)
 - [FAQ](faq.md)
 - [Glossário](glossary.md)
 
@@ -14,11 +15,13 @@ Esta seção concentra a documentação completa em português para arquitetura 
 
 - Platform Engineer / DevEx Engineer:
   - `getting-started.md`
+  - `gitops-argocd-operations.md`
   - `standards/golden-path-contracts.md`
   - `adr/0004-templates-design-contract.md`
   - `runbooks/deploy-failure.md`
 - Engineering Manager / Head of Engineering:
   - `getting-started.md`
+  - `gitops-argocd-operations.md`
   - `adr/0001-idp-scope-and-non-goals.md`
   - `adr/0003-gitops-argocd-app-of-apps.md`
   - `standards/ci-cd.md`

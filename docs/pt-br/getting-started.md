@@ -114,6 +114,10 @@ Smoke checks locais sugeridos (repositório gerado):
 
 Este repositório inclui manifests base prontos do Argo CD e apps de exemplo.
 
+Guia detalhado de operação e customização GitOps:
+
+- `docs/pt-br/gitops-argocd-operations.md`
+
 Aplique em ordem (fora deste ambiente restrito):
 
 ```bash
@@ -164,4 +168,5 @@ Para habilitar toda a automação de segurança:
 
 - [FAQ](faq.md)
 - [Glossário](glossary.md)
+- [Guia de Operação GitOps / Argo CD](gitops-argocd-operations.md)
 - [Threat Model](threat-model.md)
