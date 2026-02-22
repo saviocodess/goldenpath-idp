@@ -4,6 +4,10 @@
 
 Esta seção concentra a documentação completa em português para arquitetura de plataforma, governança, runbooks e padrões operacionais.
 
+## Comece por Aqui
+
+- [Getting Started (Uso Real)](getting-started.md)
+
 ## Decisões de Arquitetura
 
 - [ADR 0001 - Escopo do IDP e Não Objetivos](adr/0001-idp-scope-and-non-goals.md)

@@ -4,6 +4,10 @@
 
 This section contains the full English documentation set for platform architecture, governance, runbooks, and operational standards.
 
+## Start Here
+
+- [Getting Started (Real Use)](getting-started.md)
+
 ## Architecture Decisions
 
 - [ADR 0001 - IDP Scope and Non-Goals](adr/0001-idp-scope-and-non-goals.md)

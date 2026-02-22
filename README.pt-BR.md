@@ -75,6 +75,17 @@ flowchart LR
 
 ## Como Usar
 
+Quick start após clonar:
+
+```bash
+bash scripts/preflight-tools.sh
+make check
+```
+
+Para setup de ponta a ponta (Backstage + serviço gerado + Argo CD), siga:
+
+- `docs/pt-br/getting-started.md`
+
 ### 1. Fazer bootstrap do Backstage em máquina real
 
 Este workspace é intencionalmente restrito; bootstrap pesado não é executado aqui.
@@ -127,6 +138,7 @@ make check
 
 - Índice em inglês: `docs/en/index.md`
 - Índice em português: `docs/pt-br/index.md`
+- Onboarding ponta a ponta: `docs/pt-br/getting-started.md`
 
 ## Operação do Repositório no GitHub
 

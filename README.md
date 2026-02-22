@@ -75,6 +75,17 @@ flowchart LR
 
 ## How To Use
 
+Quick start after clone:
+
+```bash
+bash scripts/preflight-tools.sh
+make check
+```
+
+For an end-to-end setup (Backstage + generated service + Argo CD), follow:
+
+- `docs/en/getting-started.md`
+
 ### 1. Bootstrap Backstage in a real machine
 
 This workspace is intentionally constrained; heavy bootstrap is not executed here.
@@ -127,6 +138,7 @@ make check
 
 - English index: `docs/en/index.md`
 - Portuguese index: `docs/pt-br/index.md`
+- End-to-end onboarding: `docs/en/getting-started.md`
 
 ## GitHub Repository Operations
 
