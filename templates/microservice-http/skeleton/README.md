@@ -17,6 +17,7 @@ Node.js + TypeScript HTTP service generated from the `microservice-http` Golden 
 
 ```bash
 corepack enable
+cp .env.example .env
 yarn install
 yarn dev
 ```
@@ -34,7 +35,7 @@ yarn start
 
 ```bash
 docker build -t ${{ values.name }}:local .
-docker run --rm -p 3000:3000 ${{ values.name }}:local
+docker run --rm --env-file .env -p 3000:3000 ${{ values.name }}:local
 ```
 
 ## OpenTelemetry
@@ -60,3 +61,4 @@ export OTEL_DEBUG=false
 - `REQUEST_TIMEOUT_MS` (default: `30000`)
 - `HEADERS_TIMEOUT_MS` (default: `35000`)
 - `GRACEFUL_SHUTDOWN_TIMEOUT_MS` (default: `10000`)
+- See `.env.example` for a ready-to-edit local baseline.

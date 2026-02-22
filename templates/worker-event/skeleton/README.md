@@ -17,6 +17,7 @@ Node.js + TypeScript asynchronous worker generated from the `worker-event` Golde
 
 ```bash
 corepack enable
+cp .env.example .env
 yarn install
 yarn dev
 ```
@@ -69,3 +70,4 @@ export OTEL_DEBUG=false
 - `BACKOFF_JITTER_RATIO` (default: `0.1`)
 - `PROCESS_DELAY_MS` (default: `50`)
 - `METRICS_PORT` (optional; enables metrics server)
+- See `.env.example` for a ready-to-edit local baseline.

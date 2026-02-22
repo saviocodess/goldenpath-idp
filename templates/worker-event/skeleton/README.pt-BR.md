@@ -17,6 +17,7 @@ Worker assíncrono em Node.js + TypeScript gerado a partir do Golden Path `worke
 
 ```bash
 corepack enable
+cp .env.example .env
 yarn install
 yarn dev
 ```
@@ -69,3 +70,4 @@ export OTEL_DEBUG=false
 - `BACKOFF_JITTER_RATIO` (padrão: `0.1`)
 - `PROCESS_DELAY_MS` (padrão: `50`)
 - `METRICS_PORT` (opcional; habilita servidor de métricas)
+- Veja `.env.example` como baseline local pronto para edição.
