@@ -6,6 +6,34 @@ All notable changes to this project are documented in this file.
 
 - No pending entries.
 
+## [0.2.4] - 2026-02-22
+
+### Added
+
+- Real-use onboarding guide in both languages:
+  - `docs/en/getting-started.md`
+  - `docs/pt-br/getting-started.md`
+- Lightweight repository automation scripts:
+  - `scripts/preflight-tools.sh`
+  - `scripts/check-shell-syntax.sh`
+  - `scripts/check-markdown-links.sh`
+- Template usability assets for generated services:
+  - `.env.example`
+  - `.dockerignore`
+
+### Changed
+
+- Root `README.md` and `README.pt-BR.md` now include quick-start after clone and onboarding links.
+- Docs indexes (`docs/en/index.md`, `docs/pt-br/index.md`) now expose a clear “start here” path.
+- Root `Makefile` validation flow now documents and invokes preflight guidance, and `make check` validates shell syntax + local markdown links.
+- Root CI static checks now include shell syntax and markdown link validation.
+- CI install steps (root + template workflows) now support both Yarn classic (`--frozen-lockfile`) and Yarn modern (`--immutable`) when `yarn.lock` exists.
+- Template Dockerfiles hardened for real usage:
+  - multi-stage build/runtime layout
+  - non-root runtime user
+  - `worker-event` runtime command fixed to `dist/worker.js`
+  - `microservice-http` container healthcheck added
+
 ## [0.2.3] - 2026-02-22
 
 ### Changed
