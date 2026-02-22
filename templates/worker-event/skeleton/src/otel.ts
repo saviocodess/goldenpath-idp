@@ -3,7 +3,11 @@ import { logger } from './logger';
 
 let initialized = false;
 
-export function bootstrapTelemetry(): void {
+export function isTelemetryBootstrapped(): boolean {
+  return initialized;
+}
+
+export function bootstrapTelemetry(serviceName = process.env.SERVICE_NAME || 'worker-event'): void {
   if (initialized) {
     return;
   }
@@ -14,10 +18,11 @@ export function bootstrapTelemetry(): void {
 
   logger.info(
     {
-      otel_service_name: process.env.OTEL_SERVICE_NAME || process.env.SERVICE_NAME || 'worker-event',
-      otel_endpoint: process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'not-configured'
+      otel_service_name: process.env.OTEL_SERVICE_NAME || serviceName,
+      otel_endpoint: process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'not-configured',
+      otel_sampler: process.env.OTEL_TRACES_SAMPLER || 'default'
     },
-    'bootstrap de telemetria executado'
+    'telemetry bootstrap executed'
   );
 
   initialized = true;

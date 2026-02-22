@@ -10,6 +10,7 @@ Serviço HTTP em Node.js + TypeScript gerado a partir do Golden Path `microservi
 - Logs estruturados em JSON
 - Middleware de correlação com `request_id`
 - Pontos de instrumentação OpenTelemetry
+- Respostas de erro em JSON e shutdown gracioso
 - Pipeline CI com lint, typecheck, testes e build
 
 ## Executar localmente
@@ -23,6 +24,8 @@ yarn dev
 ## Build e execução
 
 ```bash
+yarn typecheck
+yarn test
 yarn build
 yarn start
 ```
@@ -48,4 +51,12 @@ export OTEL_TRACES_SAMPLER_ARG=0.1
 export OTEL_DEBUG=false
 ```
 
-4. Mantenha os spans de request em `src/server.ts` para correlação HTTP.
+4. Mantenha os spans de request em `src/app.ts` para correlação HTTP e visibilidade por rota.
+
+## Configuração de runtime
+
+- `PORT` (padrão: `3000`)
+- `SERVICE_NAME` (padrão: `microservice-http`)
+- `REQUEST_TIMEOUT_MS` (padrão: `30000`)
+- `HEADERS_TIMEOUT_MS` (padrão: `35000`)
+- `GRACEFUL_SHUTDOWN_TIMEOUT_MS` (padrão: `10000`)

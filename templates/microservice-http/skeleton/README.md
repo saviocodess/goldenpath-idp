@@ -10,6 +10,7 @@ Node.js + TypeScript HTTP service generated from the `microservice-http` Golden 
 - JSON structured logs
 - `request_id` correlation middleware
 - OpenTelemetry instrumentation points
+- JSON error responses and graceful shutdown handling
 - CI pipeline with lint, typecheck, tests, and build
 
 ## Run locally
@@ -23,6 +24,8 @@ yarn dev
 ## Build and run
 
 ```bash
+yarn typecheck
+yarn test
 yarn build
 yarn start
 ```
@@ -48,4 +51,12 @@ export OTEL_TRACES_SAMPLER_ARG=0.1
 export OTEL_DEBUG=false
 ```
 
-4. Keep request spans in `src/server.ts` for HTTP correlation.
+4. Keep request spans in `src/app.ts` for HTTP correlation and route-level visibility.
+
+## Runtime configuration
+
+- `PORT` (default: `3000`)
+- `SERVICE_NAME` (default: `microservice-http`)
+- `REQUEST_TIMEOUT_MS` (default: `30000`)
+- `HEADERS_TIMEOUT_MS` (default: `35000`)
+- `GRACEFUL_SHUTDOWN_TIMEOUT_MS` (default: `10000`)

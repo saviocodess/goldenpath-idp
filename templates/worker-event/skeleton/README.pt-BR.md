@@ -9,6 +9,7 @@ Worker assíncrono em Node.js + TypeScript gerado a partir do Golden Path `worke
 - Loop de consumo simulado com retry e exponential backoff
 - Logging estruturado em JSON
 - Métricas em memória com endpoint opcional `/metrics`
+- Exposição Prometheus e endpoint `/health` no servidor de métricas
 - Stub de integração com DLQ
 - Pontos de instrumentação OpenTelemetry
 
@@ -23,6 +24,8 @@ yarn dev
 ## Build e execução
 
 ```bash
+yarn typecheck
+yarn test
 yarn build
 yarn start
 ```
@@ -30,7 +33,9 @@ yarn start
 ## Métricas
 
 - Defina `METRICS_PORT=9464` para expor `GET /metrics`.
+- `GET /health` também é exposto no servidor de métricas para probes.
 - Contadores exportados:
+  - `worker_attempt_total`
   - `worker_processed_total`
   - `worker_failed_total`
   - `worker_retried_total`
@@ -55,3 +60,12 @@ export OTEL_DEBUG=false
 ```
 
 4. Mantenha os spans do worker em `src/worker.ts` para correlação de processamento.
+
+## Configuração de runtime
+
+- `MAX_RETRIES` (padrão: `3`)
+- `BASE_BACKOFF_MS` (padrão: `250`)
+- `MAX_BACKOFF_MS` (padrão: `5000`)
+- `BACKOFF_JITTER_RATIO` (padrão: `0.1`)
+- `PROCESS_DELAY_MS` (padrão: `50`)
+- `METRICS_PORT` (opcional; habilita servidor de métricas)

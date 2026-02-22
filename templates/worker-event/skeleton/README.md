@@ -9,6 +9,7 @@ Node.js + TypeScript asynchronous worker generated from the `worker-event` Golde
 - Simulated consumption loop with retry and exponential backoff
 - JSON structured logging
 - In-memory metrics with optional `/metrics`
+- Prometheus text exposition and `/health` endpoint on metrics server
 - DLQ integration stub
 - OpenTelemetry instrumentation points
 
@@ -23,6 +24,8 @@ yarn dev
 ## Build and run
 
 ```bash
+yarn typecheck
+yarn test
 yarn build
 yarn start
 ```
@@ -30,7 +33,9 @@ yarn start
 ## Metrics
 
 - Set `METRICS_PORT=9464` to expose `GET /metrics`.
+- `GET /health` is also exposed on the metrics server for sidecar probes.
 - Exported counters:
+  - `worker_attempt_total`
   - `worker_processed_total`
   - `worker_failed_total`
   - `worker_retried_total`
@@ -55,3 +60,12 @@ export OTEL_DEBUG=false
 ```
 
 4. Keep worker spans in `src/worker.ts` for processing correlation.
+
+## Runtime configuration
+
+- `MAX_RETRIES` (default: `3`)
+- `BASE_BACKOFF_MS` (default: `250`)
+- `MAX_BACKOFF_MS` (default: `5000`)
+- `BACKOFF_JITTER_RATIO` (default: `0.1`)
+- `PROCESS_DELAY_MS` (default: `50`)
+- `METRICS_PORT` (optional; enables metrics server)

@@ -1,88 +1,94 @@
-import { randomUUID } from 'node:crypto';
-import express, { NextFunction, Request, Response } from 'express';
-import pinoHttp from 'pino-http';
-import { trace } from '@opentelemetry/api';
-import { getHealth, getReadiness } from './health';
-import { logger } from './logger';
+import http, { type Server } from 'node:http';
+import type { Express } from 'express';
+import { createApp } from './app';
+import { loadConfig, type ServiceConfig } from './config';
+import { createLogger, type LoggerOptions } from './logger';
 import { bootstrapTelemetry } from './otel';
 
-declare module 'express-serve-static-core' {
-  interface Request {
-    requestId: string;
-  }
+export type RunningServer = {
+  app: Express;
+  server: Server;
+  config: ServiceConfig;
+  loggerOptions: LoggerOptions;
+};
+
+export function buildServer(env: NodeJS.ProcessEnv = process.env): RunningServer {
+  const config = loadConfig(env);
+  const loggerOptions: LoggerOptions = {
+    serviceName: config.serviceName,
+    environment: config.environment
+  };
+
+  bootstrapTelemetry(config.serviceName);
+  const appLogger = createLogger(loggerOptions);
+  const app = createApp(config, appLogger);
+  const server = http.createServer(app);
+
+  server.requestTimeout = config.requestTimeoutMs;
+  server.headersTimeout = config.headersTimeoutMs;
+
+  return {
+    app,
+    server,
+    config,
+    loggerOptions
+  };
 }
 
-const tracer = trace.getTracer('microservice-http');
-const app = express();
-bootstrapTelemetry();
+function startMainProcess(): void {
+  const { server, config, loggerOptions } = buildServer();
+  const logger = createLogger(loggerOptions);
 
-app.use(express.json());
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const incoming = req.header('x-request-id');
-  req.requestId = incoming || randomUUID();
-  res.setHeader('x-request-id', req.requestId);
-  next();
-});
-
-app.use(
-  pinoHttp({
-    logger,
-    customProps: (req) => ({
-      request_id: req.requestId
-    })
-  })
-);
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const span = tracer.startSpan(`http.${req.method.toLowerCase()}`);
-  span.setAttribute('http.route', req.path);
-  span.setAttribute('request.id', req.requestId);
-  res.on('finish', () => {
-    span.setAttribute('http.status_code', res.statusCode);
-    span.end();
-  });
-  next();
-});
-
-app.get('/health', (_req: Request, res: Response) => {
-  res.status(200).json(getHealth());
-});
-
-app.get('/ready', (_req: Request, res: Response) => {
-  const readiness = getReadiness();
-  res.status(readiness.status === 'ready' ? 200 : 503).json(readiness);
-});
-
-app.get('/', (req: Request, res: Response) => {
-  logger.info({ request_id: req.requestId }, 'request recebida');
-  res.status(200).json({
-    service: process.env.SERVICE_NAME || 'microservice-http',
-    request_id: req.requestId
-  });
-});
-
-const port = Number(process.env.PORT || 3000);
-
-if (require.main === module) {
-  const server = app.listen(port, () => {
-    logger.info({ port }, 'microservice-http iniciado');
+  server.listen(config.port, () => {
+    logger.info(
+      {
+        port: config.port,
+        request_timeout_ms: config.requestTimeoutMs,
+        headers_timeout_ms: config.headersTimeoutMs
+      },
+      'microservice-http started'
+    );
   });
 
+  let shuttingDown = false;
   const shutdown = (signal: string) => {
-    logger.info({ signal }, 'recebido sinal de shutdown');
+    if (shuttingDown) {
+      return;
+    }
+    shuttingDown = true;
+
+    logger.info({ signal }, 'shutdown signal received');
+    const forceExit = setTimeout(() => {
+      logger.error({ timeout_ms: config.gracefulShutdownTimeoutMs }, 'graceful shutdown timeout exceeded');
+      process.exit(1);
+    }, config.gracefulShutdownTimeoutMs);
+    forceExit.unref();
+
     server.close((error) => {
+      clearTimeout(forceExit);
       if (error) {
-        logger.error({ err: error }, 'erro no shutdown do servidor');
+        logger.error({ err: error }, 'server shutdown failed');
         process.exit(1);
       }
-      logger.info('shutdown concluído');
+      logger.info('shutdown completed');
       process.exit(0);
     });
   };
 
-  process.on('SIGINT', () => shutdown('SIGINT'));
-  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.once('SIGINT', () => shutdown('SIGINT'));
+  process.once('SIGTERM', () => shutdown('SIGTERM'));
+  process.once('unhandledRejection', (error) => {
+    logger.error({ err: error }, 'unhandled rejection');
+    shutdown('unhandledRejection');
+  });
+  process.once('uncaughtException', (error) => {
+    logger.fatal({ err: error }, 'uncaught exception');
+    shutdown('uncaughtException');
+  });
 }
 
-export { app };
+if (require.main === module) {
+  startMainProcess();
+}
+
+export { createApp };
