@@ -22,10 +22,10 @@ jobs:
           {
             echo "# ${tag}"
             echo
-            echo "Resumo das mudanças:"
+            echo "Summary of changes:"
             awk -v version="${version}" '
               $0 ~ "^## \\[" version "\\]" { capture=1; next }
-              capture == 1 && /^## \\[/ { exit }
+              capture == 1 && index($0, "## [") == 1 { exit }
               capture == 1 { print }
             ' CHANGELOG.md
           } > RELEASE_NOTES.md
