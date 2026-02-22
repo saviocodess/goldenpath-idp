@@ -7,6 +7,27 @@ Esta seção concentra a documentação completa em português para arquitetura 
 ## Comece por Aqui
 
 - [Getting Started (Uso Real)](getting-started.md)
+- [FAQ](faq.md)
+- [Glossário](glossary.md)
+
+## Trilhas de Leitura (por público)
+
+- Platform Engineer / DevEx Engineer:
+  - `getting-started.md`
+  - `standards/golden-path-contracts.md`
+  - `adr/0004-templates-design-contract.md`
+  - `runbooks/deploy-failure.md`
+- Engineering Manager / Head of Engineering:
+  - `getting-started.md`
+  - `adr/0001-idp-scope-and-non-goals.md`
+  - `adr/0003-gitops-argocd-app-of-apps.md`
+  - `standards/ci-cd.md`
+  - `threat-model.md`
+- Recrutador / Hiring Manager:
+  - `getting-started.md` (seções 1, 2, 8)
+  - `faq.md`
+  - `adr/0001-idp-scope-and-non-goals.md`
+  - `runbooks/incident-template.md`
 
 ## Decisões de Arquitetura
 
@@ -37,3 +58,9 @@ Esta seção concentra a documentação completa em português para arquitetura 
 
 - [Threat Model](threat-model.md)
 - [Roteiro de Demo](demo-script.md)
+
+## Notas de Manutenção da Documentação
+
+- Os arquivos EN/PT-BR são mantidos em paths espelhados (`docs/en/...` e `docs/pt-br/...`).
+- Mantenha os links de troca de idioma nas primeiras linhas de cada documento.
+- Use `make check` antes de abrir PRs para validar paridade, links e formatação.

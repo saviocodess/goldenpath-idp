@@ -39,6 +39,12 @@ What `make check` validates:
 - shell script syntax
 - local Markdown links
 
+Success criteria for this step:
+
+- all static checks pass locally
+- no missing bilingual documentation pairs
+- no broken local Markdown references
+
 ## 3. Backstage bootstrap and overlays (real environment)
 
 Generate Backstage in a machine with enough disk/network capacity:
@@ -54,6 +60,12 @@ Then apply overlays from this repository (see `backstage/README.md`):
 - confirm the Scaffolder templates appear:
   - `microservice-http`
   - `worker-event`
+
+Quick validation after applying overlays:
+
+- Backstage starts without catalog/scaffolder config errors
+- `goldenpath-idp-locations` location is reachable
+- templates render parameter forms in Scaffolder UI
 
 ## 4. Generate a service from a Golden Path
 
@@ -89,6 +101,15 @@ Template-specific notes:
 - `microservice-http`: health endpoints `/health` and `/ready`
 - `worker-event`: optional metrics server with `METRICS_PORT=9464` exposing `/metrics` and `/health`
 
+Suggested local smoke checks (generated service repo):
+
+- `microservice-http`:
+  - `curl -s http://localhost:3000/health`
+  - `curl -s http://localhost:3000/ready`
+- `worker-event` (with `METRICS_PORT=9464`):
+  - `curl -s http://localhost:9464/health`
+  - `curl -s http://localhost:9464/metrics`
+
 ## 6. GitOps with Argo CD (app-of-apps)
 
 This repository includes ready-to-apply Argo CD baseline manifests and example apps.
@@ -108,6 +129,19 @@ Then verify:
 
 - root application `goldenpath-idp-root` is healthy
 - child apps `example-microservice-http` and `example-worker-event` sync successfully
+- example namespaces (`microservice-http`, `worker-event`) exist
+
+## 7.1 Common first-day pitfalls (and fixes)
+
+- `make check` fails because `node` is missing:
+  - run `bash scripts/preflight-tools.sh`
+  - install Node + Corepack/Yarn in your machine
+- Backstage templates do not appear:
+  - confirm `locations.yaml` URL is reachable from Backstage
+  - review `docs/en/runbooks/backstage-catalog-troubleshooting.md`
+- Argo CD apps stay `OutOfSync`:
+  - confirm repo URL/revision/path in `gitops/argocd/apps/*.yaml`
+  - review `docs/en/runbooks/deploy-failure.md` and `docs/en/runbooks/rollback.md`
 
 ## 7. GitHub repository settings (recommended)
 
@@ -125,3 +159,9 @@ To fully enable security automation:
 - Argo CD root app synced
 - example app health verified in cluster
 - docs links and runbooks reviewed by your team
+
+## Related documents
+
+- [FAQ](faq.md)
+- [Glossary](glossary.md)
+- [Threat Model](threat-model.md)

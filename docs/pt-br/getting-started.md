@@ -39,6 +39,12 @@ O que `make check` valida:
 - sintaxe de scripts shell
 - links locais em Markdown
 
+Critérios de sucesso desta etapa:
+
+- todos os checks estáticos passam localmente
+- não há pares de documentação bilíngue faltando
+- não há referências locais quebradas em Markdown
+
 ## 3. Bootstrap do Backstage e overlays (ambiente real)
 
 Gere o Backstage em uma máquina com espaço/rede suficientes:
@@ -54,6 +60,12 @@ Depois aplique os overlays deste repositório (veja `backstage/README.md`):
 - confirme que os templates aparecem no Scaffolder:
   - `microservice-http`
   - `worker-event`
+
+Validação rápida após aplicar os overlays:
+
+- Backstage sobe sem erros de catálogo/scaffolder
+- location `goldenpath-idp-locations` está acessível
+- templates renderizam formulários no UI do Scaffolder
 
 ## 4. Gerar um serviço via Golden Path
 
@@ -89,6 +101,15 @@ Notas por template:
 - `microservice-http`: endpoints de health `/health` e `/ready`
 - `worker-event`: servidor de métricas opcional com `METRICS_PORT=9464`, expondo `/metrics` e `/health`
 
+Smoke checks locais sugeridos (repositório gerado):
+
+- `microservice-http`:
+  - `curl -s http://localhost:3000/health`
+  - `curl -s http://localhost:3000/ready`
+- `worker-event` (com `METRICS_PORT=9464`):
+  - `curl -s http://localhost:9464/health`
+  - `curl -s http://localhost:9464/metrics`
+
 ## 6. GitOps com Argo CD (app-of-apps)
 
 Este repositório inclui manifests base prontos do Argo CD e apps de exemplo.
@@ -108,6 +129,19 @@ Depois verifique:
 
 - aplicação raiz `goldenpath-idp-root` saudável
 - apps filhas `example-microservice-http` e `example-worker-event` sincronizando com sucesso
+- namespaces de exemplo (`microservice-http`, `worker-event`) existentes
+
+## 7.1 Erros comuns no primeiro dia (e correções)
+
+- `make check` falha porque `node` não está instalado:
+  - rode `bash scripts/preflight-tools.sh`
+  - instale Node + Corepack/Yarn na sua máquina
+- Templates do Backstage não aparecem:
+  - confirme que a URL de `locations.yaml` está acessível pelo Backstage
+  - revise `docs/pt-br/runbooks/backstage-catalog-troubleshooting.md`
+- Apps no Argo CD ficam `OutOfSync`:
+  - confirme `repoURL`, `targetRevision` e `path` em `gitops/argocd/apps/*.yaml`
+  - revise `docs/pt-br/runbooks/deploy-failure.md` e `docs/pt-br/runbooks/rollback.md`
 
 ## 7. Configurações recomendadas no GitHub
 
@@ -125,3 +159,9 @@ Para habilitar toda a automação de segurança:
 - root app do Argo CD sincronizado
 - saúde dos apps de exemplo validada no cluster
 - links de docs e runbooks revisados pelo time
+
+## Documentos relacionados
+
+- [FAQ](faq.md)
+- [Glossário](glossary.md)
+- [Threat Model](threat-model.md)

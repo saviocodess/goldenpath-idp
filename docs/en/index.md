@@ -7,6 +7,27 @@ This section contains the full English documentation set for platform architectu
 ## Start Here
 
 - [Getting Started (Real Use)](getting-started.md)
+- [FAQ](faq.md)
+- [Glossary](glossary.md)
+
+## Reading Paths (by audience)
+
+- Platform Engineer / DevEx Engineer:
+  - `getting-started.md`
+  - `standards/golden-path-contracts.md`
+  - `adr/0004-templates-design-contract.md`
+  - `runbooks/deploy-failure.md`
+- Engineering Manager / Head of Engineering:
+  - `getting-started.md`
+  - `adr/0001-idp-scope-and-non-goals.md`
+  - `adr/0003-gitops-argocd-app-of-apps.md`
+  - `standards/ci-cd.md`
+  - `threat-model.md`
+- Recruiter / Hiring Manager:
+  - `getting-started.md` (sections 1, 2, 8)
+  - `faq.md`
+  - `adr/0001-idp-scope-and-non-goals.md`
+  - `runbooks/incident-template.md`
 
 ## Architecture Decisions
 
@@ -37,3 +58,9 @@ This section contains the full English documentation set for platform architectu
 
 - [Threat Model](threat-model.md)
 - [Demo Script](demo-script.md)
+
+## Documentation Maintenance Notes
+
+- EN/PT-BR files are maintained in mirrored paths (`docs/en/...` and `docs/pt-br/...`).
+- Keep language switch links in the first lines of each document.
+- Use `make check` before opening PRs to validate parity, links, and formatting.
